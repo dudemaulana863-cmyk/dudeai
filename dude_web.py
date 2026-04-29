@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify, render_template_string
 import requests, base64, tempfile, os
 
 app = Flask(__name__)
-KEY = "YOUR_API_KEY"
+import os
+KEY = os.environ.get('GROQ_API_KEY', '')
 H = []
 
 HTML = """
@@ -309,4 +310,5 @@ def vn():
         return jsonify({"reply":f"Error VN: {str(e)}"})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    import os
+app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=False)
